@@ -3,21 +3,19 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-   print("aa")
-   return render_template('index.html' )
+   return render_template('index.html')
 
-@app.route('/success')
-def success():
-   return render_template('success.html', name = request.args.get('name'))
+@app.route('/about')
+def about():
+   return render_template('about.html')
 
+@app.route('/post')
+def post():
+   return render_template('post.html')
 
-@app.route('/login',methods = ['POST', 'GET'])
-def login():
-   if request.method == 'POST':
-      user = request.form['nm']
-      return redirect(url_for('success',name = user))
-   else:
-      user = request.args.get('nm')
-      return redirect(url_for('success',name = user))
+@app.route('/contact')
+def contact():
+   return render_template('contact.html')
+
 if __name__ == '__main__':
    app.run()
