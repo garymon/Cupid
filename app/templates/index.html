@@ -198,16 +198,15 @@
     <script>
     // Scrolls to the selected menu item on the page
     $(function() {
-        $('a[href*=#]:not([href=#],[data-toggle],[data-target],[data-slide])').click(function() {
+        //set event only to-top element
+        $('#to-top').click(function() {
             if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') || location.hostname == this.hostname) {
-                var target = $(this.hash);
-                target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
-                if (target.length) {
-                    $('html,body').animate({
-                        scrollTop: target.offset().top
-                    }, 1000);
-                    return false;
-                }
+                $('html,body').animate({
+                    scrollTop: 0
+                }, 500);
+                //prevent scroll bubbling event
+                event.preventDefault()
+
             }
         });
     });
@@ -218,7 +217,7 @@
             if (!fixed) {
                 fixed = true;
                 // $('#to-top').css({position:'fixed', display:'block'});
-                $('#to-top').show("slow", function() {
+                $('#to-top').show("fast", function() {
                     $('#to-top').css({
                         position: 'fixed',
                         display: 'block'
