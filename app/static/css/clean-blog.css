@@ -400,3 +400,24 @@ img::-moz-selection {
 body {
   -webkit-tap-highlight-color: #0085A1;
 }
+/* HYEOKJUN ADD CSS CODE */
+
+#to-top {
+  display: none;
+  position: fixed;
+  bottom: 5px;
+  right: 5px;
+}
+
+.btn-dark {
+    border-radius: 0;
+    color: #fff;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.btn-dark:hover,
+.btn-dark:focus,
+.btn-dark:active {
+    color: #fff;
+    background-color: rgba(0,0,0,0.7);
+}
