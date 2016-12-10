@@ -58,7 +58,7 @@
                         <a href="about">About</a>
                     </li>
                     <li>
-                        <a href="post">Sample Post</a>
+                        <a href="posts">Sample Post</a>
                     </li>
                     <li>
                         <a href="contact">Contact</a>
@@ -77,7 +77,7 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
-                        <h1>Man must explore, and this is exploration at its greatest</h1>
+                        <h1>POST</h1>
                         <h2 class="subheading">Problems look mighty small from 150 miles up</h2>
                         <span class="meta">Posted by <a href="#">Start Bootstrap</a> on August 24, 2014</span>
                     </div>
@@ -95,17 +95,21 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="container write">
+                <div id="card_div" class="container write">
                     <div class="card">
                         <div class="card-content">
                             <textarea class="materialize-textarea" id="textArea" placeholder="Write down your memo"></textarea>
                         </div>
                         <div class="card-action">
-                            <a href='#' onclick="onclick_post()">POST</a>
+                            <a id="post_btn" href="">POST</a>
                         </div>
                     </div>
+                        {% for postItem in posts  %}
+                            <p>name : {{postItem.name}}</p>
+                            <p>content : {{postItem.content}}</p>
+                            <p>date : {{postItem.date}}</p>
+                        {% endfor %}
                 </div>
-                <p>Hello Json {{ json_string }}!</p>
             </div>
         </div>
     </div>
@@ -149,12 +153,7 @@
         </div>
     </footer>
 
-    <script>
-        function onclick_post(){
-            post_string = document.getElementById("textArea").value;
-            console.log(post_string);
-        }
-    </script>
+
 
     <!-- jQuery -->
     <script src="static/vendor/jquery/jquery.min.js"></script>
@@ -169,6 +168,44 @@
 
     <!-- Theme JavaScript -->
     <script src="static/js/clean-blog.min.js"></script>
+
+    <script>
+        $("#post_btn").click(onclick_post)
+
+        function onclick_post(e){
+            input_str = document.getElementById("textArea").value;
+            json_obj = {
+                name : "Jun Seo",
+                date : "2016/12/10/SAT",
+                content : input_str
+            };
+
+            console.log("[post.html]" + json_obj);
+
+            sendServerJson(JSON.stringify(json_obj));
+             e.preventDefault();
+        }
+
+        function sendServerJson(jsonData){
+            $.ajax({
+                type: "POST",
+                url: "/posts",
+                contentType: "application/json",
+                data: jsonData,
+                error: function(request,status,error){
+                    console.log("[post.html] : error");
+                },
+                success: function(result){
+                    console.log("[post.html] : success");
+                    getAllData(JSON.parse(result));
+                }
+            });
+        }
+
+        function getAllData(result){
+            $("#card_div").append("<p>name : " + result.name + "</p><p>" + "content : " + result.content + "</p><p>" + "date : " + result.date + "\n" + "</p>");
+        }
+    </script>
 
 </body>
 
