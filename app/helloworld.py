@@ -12,12 +12,12 @@ def index():
    return render_template('index.html')
 
 def jsonController(myData) :
-   print(uuid.uuid4())
    myData['uuid'] = str(uuid.uuid4())
 
    fRead = open("post.json", 'r')
    originJson= fRead.read()
    fRead.close()
+
    if not originJson :
        originJson = "[]"
 
@@ -39,12 +39,12 @@ def about():
 def post():
    if request.method == "GET":
       fRead = open("post.json", 'r')
-      outputJson = {}
-      try:
-        outputJson = json.loads(fRead.read())
-        outputJson.reverse()
-      except ValueError:
-          print "error"
+      outputJson = fRead.read()
+      fRead.close()
+      if not outputJson :
+         return render_template('post.html')
+      outputJson = json.loads(outputJson)
+      outputJson.reverse()
       return render_template('post.html', posts=outputJson)
 
    elif request.method == "POST":
