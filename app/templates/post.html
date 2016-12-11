@@ -78,7 +78,7 @@
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
                         <h1>POST</h1>
-                        <h2 class="subheading">Problems look mighty small from 150 miles up</h2>
+                        <h2 class="subheading">sample</h2>
                         <span class="meta">Posted by <a href="#">Start Bootstrap</a> on August 24, 2014</span>
                     </div>
                 </div>
@@ -94,8 +94,8 @@
 -->
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div id="card_div" class="container write">
+            <div class="col-lg-12 col-md-12">
+                <div class="container write">
                     <div class="card">
                         <div class="card-content">
                             <textarea class="materialize-textarea" id="textArea" placeholder="Write down your memo"></textarea>
@@ -104,11 +104,9 @@
                             <a id="post_btn" href="">POST</a>
                         </div>
                     </div>
-                        {% for postItem in posts  %}
-                            <p>name : {{postItem.name}}</p>
-                            <p>content : {{postItem.content}}</p>
-                            <p>date : {{postItem.date}}</p>
-                        {% endfor %}
+                    <div id="postContent">
+                        {% include "post_template.html" %}
+                    </div>
                 </div>
             </div>
         </div>
@@ -170,20 +168,35 @@
     <script src="static/js/clean-blog.min.js"></script>
 
     <script>
-        $("#post_btn").click(onclick_post)
+        $("#post_btn").click(function() {
+            onclick_post()
+            e.preventDefault();
+        })
+        $('#textArea').keydown(function (e) {
+          if (e.ctrlKey && e.keyCode == 13) {
+                onclick_post()
+          }
+        });
 
         function onclick_post(e){
+            var d = new Date();
+            var min = d.getMinutes();
+            var hour = d.getHours();
+            var datee = d.getDate();
+            var month = d.getMonth() + 1 ;
+            var year = d.getFullYear();
+            var sec = d.getSeconds();
+
             input_str = document.getElementById("textArea").value;
             json_obj = {
                 name : "Jun Seo",
-                date : "2016/12/10/SAT",
+                date : year + "/" + month+ "/" + datee + "/" + hour + ":" + min + ":"  + sec,
                 content : input_str
             };
 
             console.log("[post.html]" + json_obj);
 
             sendServerJson(JSON.stringify(json_obj));
-             e.preventDefault();
         }
 
         function sendServerJson(jsonData){
@@ -197,13 +210,15 @@
                 },
                 success: function(result){
                     console.log("[post.html] : success");
-                    getAllData(JSON.parse(result));
+                    $("#postContent").prepend(result)
+                    $("#textArea").val("")
+                    //getAllData(JSON.parse(result));
                 }
             });
         }
 
         function getAllData(result){
-            $("#card_div").append("<p>name : " + result.name + "</p><p>" + "content : " + result.content + "</p><p>" + "date : " + result.date + "\n" + "</p>");
+            $("#postContent").prepend("<p>name : " + result.name + "</p><p>" + "content : " + result.content.replace(/\n/g , "<br>") + "</p><p>" + "date : " + result.date + "\n" + "</p>");
         }
     </script>
 

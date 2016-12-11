@@ -13,10 +13,13 @@ def index():
 
 def jsonController(myData) :
    print(uuid.uuid4())
+   myData['uuid'] = str(uuid.uuid4())
 
    fRead = open("post.json", 'r')
    originJson= fRead.read()
    fRead.close()
+   if not originJson :
+       originJson = "[]"
 
    fWrite = open("post.json", 'w')
 
@@ -34,16 +37,20 @@ def about():
 
 @app.route('/posts', methods=['POST', 'GET'])
 def post():
-
    if request.method == "GET":
       fRead = open("post.json", 'r')
-      outputJson = json.loads(fRead.read())
-      outputJson.reverse()
-      return render_template('post.html', posts = outputJson)
+      outputJson = {}
+      try:
+        outputJson = json.loads(fRead.read())
+        outputJson.reverse()
+      except ValueError:
+          print "error"
+      return render_template('post.html', posts=outputJson)
+
    elif request.method == "POST":
       req_json = request.get_json()
       jsonController(req_json)
-      return json.dumps(req_json)
+      return render_template('post_template.html', posts=[req_json])
 
 @app.route('/contact')
 def contact():
