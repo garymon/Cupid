@@ -24,11 +24,12 @@ def jsonController(myData) :
    fWrite = open("post.json", 'w')
 
    originDataArr = json.loads(originJson)
-
+   print(originDataArr)
    originDataArr.append(myData)
 
    fWrite.write(json.dumps(originDataArr))
    fWrite.close()
+   print(originDataArr[1]['uuid'])
 
 
 @app.route('/about')

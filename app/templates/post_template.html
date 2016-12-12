@@ -1,6 +1,17 @@
 {% for postItem in posts  %}
 <div class="col s12 m12 card blue-grey darken-1">
     <div class="card-content white-text">
+
+        <div class="dropup right">
+          <button class="right" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class=" glyphicon glyphicon-menu-hamburger right"></span>
+          </button>
+          <ul class="dropdown-menu right" aria-labelledby="dropdownMenu2">
+            <li><a id="update" href="#">update</a></li>
+            <li><a id="delete" href="#">delete</a></li>
+          </ul>
+        </div>
+
         <div style="border-top:1px solid; border-bottom:1px solid">
             <br>
             {% for contentItem in postItem.content.splitlines() %}
@@ -10,6 +21,7 @@
         </div>
         <br>
         <div style="font-size: small;text-align: right;"> {{postItem.name}} ({{postItem.date}})</div>
+        <div id="uuid" style="display:none">{{postItem.uuid}}</div>
     </div>
 </div>
 {% endfor %}
