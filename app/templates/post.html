@@ -168,7 +168,7 @@
     <script src="static/js/clean-blog.min.js"></script>
 
     <script>
-        $("#post_btn").click(function() {
+        $("#post_btn").click(function(e) {
             onclick_post()
             e.preventDefault();
         })
@@ -177,7 +177,21 @@
                 onclick_post()
           }
         });
+        $(".update").click(function(e) {
+            var target = e.currentTarget
 
+            e.preventDefault();
+            console.log(target);
+            var mostup = $(target).parents(".card-content")
+            var jquery_test = document.getElementById('updateDiv');
+            console.log(jquery_test);
+            var text= $(".updateDiv").empty();
+            console.log(text);
+        })
+
+        $(".delete").click(function(e) {
+            e.preventDefault();
+        })
         function onclick_post(e){
             var d = new Date();
             var min = d.getMinutes();

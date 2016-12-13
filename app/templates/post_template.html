@@ -7,12 +7,12 @@
             <span class=" glyphicon glyphicon-menu-hamburger right"></span>
           </button>
           <ul class="dropdown-menu right" aria-labelledby="dropdownMenu2">
-            <li><a id="update" href="#">update</a></li>
-            <li><a id="delete" href="#">delete</a></li>
+            <li><a class="update" href="">update</a></li>
+            <li><a class="delete" href="">delete</a></li>
           </ul>
         </div>
 
-        <div style="border-top:1px solid; border-bottom:1px solid">
+        <div class="updateDiv" style="border-top:1px solid; border-bottom:1px solid">
             <br>
             {% for contentItem in postItem.content.splitlines() %}
                 {{contentItem}}<br>
