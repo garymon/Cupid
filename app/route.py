@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import json, uuid
 from flask import Flask, redirect, url_for, request, render_template
-from FileDAO import fileDAO
+from fileDAO import fileDAO
 
 app = Flask(__name__)
 
