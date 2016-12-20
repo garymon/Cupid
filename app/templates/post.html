@@ -274,7 +274,7 @@
 
             $.ajax({
                 type: "PUT",
-                url: "/posts/" + updateUUID,
+                url: "/posts",
                 contentType: "application/json",
                 data: JSON.stringify(json_obj),
                 error: function(request,status,error){
