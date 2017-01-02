@@ -2,6 +2,7 @@
 import json, uuid
 from flask import Flask, redirect, url_for, request, render_template
 from fileDAO import fileDAO
+from MysqlDAO import MysqlDAO
 
 app = Flask(__name__)
 
@@ -16,21 +17,25 @@ def about():
 @app.route('/posts', methods=['POST', 'GET', 'PUT', 'DELETE'])
 def post():
    if request.method == "GET":
-        return render_template('post.html', posts=fileDAO.get_all_posts())
+        var = MysqlDAO.post_select()
+        print(var)
+        return render_template('post.html', posts=var)
 
    elif request.method == "POST":
         insertObj = request.get_json()
-        fileDAO.save(insertObj)
+        MysqlDAO.post_insert(insertObj)
+        #fileDAO.save(insertObj)
         return ""
 
    elif request.method == "PUT":
         updateObj = request.get_json()
-        fileDAO.modify(updateObj)
+        MysqlDAO.post_update(updateObj)
+        #fileDAO.modify(updateObj)
         return ""
 
    elif request.method == "DELETE" :
         removeObj = request.get_json()
-        fileDAO.remove(removeObj)
+        MysqlDAO.post_delete(removeObj)
         return ""
 
 @app.route("/posts/<uuid>")

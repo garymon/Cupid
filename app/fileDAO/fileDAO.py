@@ -1,7 +1,6 @@
 
 import json, uuid
 
-
 def get_all_posts():
     outputJson = read_file()
     if not outputJson:
