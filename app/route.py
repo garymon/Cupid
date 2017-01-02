@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import json, uuid
 from flask import Flask, redirect, url_for, request, render_template
-from fileDAO import fileDAO
 from MysqlDAO import MysqlDAO
 
 app = Flask(__name__)
@@ -10,9 +9,9 @@ app = Flask(__name__)
 def index():
    return render_template('index.html')
 
-@app.route('/about')
+@app.route('/photo')
 def about():
-   return render_template('about.html')
+   return render_template('photo.html')
 
 @app.route('/posts', methods=['POST', 'GET', 'PUT', 'DELETE'])
 def post():
