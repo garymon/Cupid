@@ -1,4 +1,3 @@
-
 import uuid, pymysql
 
 
@@ -20,10 +19,10 @@ def post_select():
 def post_insert(post):
     conn, curs = DB_connect()
     post['uuid'] = str(uuid.uuid4())
+    #sql = "INSERT INTO cupid.post(date, content,name,uuid) VALUES ('%s', '%s', '%s', '%s')"%(str(post['date']), str(post['content'].encode('utf-8')), str(post['name'].encode('utf-8')), str(post['uuid']))
     sql = "INSERT INTO cupid.post(date, content,name,uuid) VALUES (%s, %s, %s, %s)"
-    print(str(post['date']))
-    print(post['date'])
-    curs.execute(sql,(str(post['date']), str(post['content']), str(post['name']), str(post['uuid'])))
+    curs.execute(sql,(str(post['date']), str(post['content'].encode('utf-8')), str(post['name'].encode('utf-8')), str(post['uuid'])))
+    #curs.execute(sql)
     curs.fetchall()
     conn.commit()
     conn.close()
@@ -33,7 +32,7 @@ def post_insert(post):
 def post_update(modifyPost):
     conn, curs = DB_connect()
     sql = "UPDATE cupid.post SET content = %s WHERE uuid = %s"
-    curs.execute(sql, (str(modifyPost['content']), str(modifyPost['uuid'])))
+    curs.execute(sql, (str(modifyPost['content'].encode('utf-8')), str(modifyPost['uuid'])))
     curs.fetchall()
     conn.commit()
     conn.close()

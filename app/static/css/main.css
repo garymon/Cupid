@@ -20,3 +20,19 @@ body {
 .wrapper {
     margin-top: 20px;
 }
+
+.photoImg {
+    margin: 5px;
+    border: 1px solid #ccc;
+    float: left;
+    width: 180px;
+}
+
+.photoImg:hover {
+    border: 1px solid #777;
+}
+
+.photoImg img {
+    width: 100%;
+    height: auto;
+}
