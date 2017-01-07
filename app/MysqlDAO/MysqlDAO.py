@@ -1,8 +1,8 @@
 import uuid, pymysql
-
+from config import *
 
 def DB_connect():
-    conn = pymysql.connect(host='toyrds.c0wrmbs8zzag.ap-northeast-2.rds.amazonaws.com', port=3306, user='root',password='rootroot', db='cupid', charset='utf8')
+    conn = pymysql.connect(host=MYSQL_URL, port=MYSQL_PORT, user=MYSQL_USER, password=MYSQL_PASSWD, db=MYSQL_DBNAME, charset=MYSQL_CHARSET)
     curs = conn.cursor(pymysql.cursors.DictCursor)
     return conn, curs
 
