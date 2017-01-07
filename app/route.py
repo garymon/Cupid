@@ -2,6 +2,8 @@
 import json, uuid
 from flask import Flask, redirect, url_for, request, render_template
 from MysqlDAO import MysqlDAO
+import datetime
+
 
 app = Flask(__name__)
 
@@ -46,5 +48,5 @@ def contact():
    return render_template('contact.html')
 
 def run():
-
-    app.run()
+    print("Cupid Start at %s"%str(datetime.datetime.now()))
+    app.run(host="0.0.0.0", port=int("80"), debug=True)
