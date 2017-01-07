@@ -15,8 +15,8 @@
     <link href="static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Theme CSS -->
-    <link href="static/css/clean-blog.min.css" rel="stylesheet">
-    <link href="static/css/main.css" rel="stylesheet">
+        <link href="static/css/clean-blog.min.css" rel="stylesheet">
+        <link href="static/css/main.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -87,7 +87,18 @@
     <!-- Main Content -->
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <!-- Single button -->
+            <div class="btn-group col-lg-10 col-lg-offset-8 col-md-10 col-md-offset-8">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                   Option <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                   <li><a href="#">Upload</a></li>
+                   <li><a href="#">Increasing sort by date</a></li>
+                   <li><a href="#">Decreasing sort by date</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1">
                 <div class="photoImg">
                     <a target="_blank" href="img_fjords.jpg">
                         <img src="../static/img/about-bg.jpg" alt="Trolltunga Norway" width="300" height="200">
@@ -103,6 +114,12 @@
                 <div class="photoImg">
                     <a target="_blank" href="img_lights.jpg">
                         <img src="../static/img/about-bg.jpg" alt="Northern Lights" width="600" height="400">
+                    </a>
+                </div>
+
+                <div class="photoImg">
+                    <a target="_blank" href="img_mountains.jpg">
+                        <img src="../static/img/about-bg.jpg" alt="Mountains" width="600" height="400">
                     </a>
                 </div>
 

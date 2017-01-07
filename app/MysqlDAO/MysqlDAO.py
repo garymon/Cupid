@@ -28,7 +28,6 @@ def post_insert(post):
     conn.close()
     return
 
-
 def post_update(modifyPost):
     conn, curs = DB_connect()
     sql = "UPDATE cupid.post SET content = %s WHERE uuid = %s"
