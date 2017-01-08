@@ -7,9 +7,15 @@ def DB_connect():
     return conn, curs
 
 
-def post_select():
+def post_select(page_size=None, page_num=None):
     conn, curs = DB_connect()
-    sql = "select * from cupid.post ORDER BY date DESC"
+    if page_size is not None and page_num is not None:
+        #select post with limit
+        sql = "select * from cupid.post ORDER BY date DESC LIMIT %s, %s"%(page_size * page_num, page_size)
+    else:
+        #select all posts
+        sql = "select * from cupid.post ORDER BY date DESC"
+
     res = curs.execute(sql)
     rows = curs.fetchall()
     print(rows)

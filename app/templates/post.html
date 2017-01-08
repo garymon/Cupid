@@ -201,7 +201,7 @@
         function sendServerJson(jsonData){
             $.ajax({
                 type: "POST",
-                url: "/posts",
+                url: "/api/posts",
                 contentType: "application/json",
                 data: jsonData,
                 error: function(request,status,error){
@@ -235,7 +235,7 @@
 
             $.ajax({
                 type: "DELETE",
-                url: "/posts",
+                url: "/api/posts",
                 contentType: "application/json",
                 data: JSON.stringify(uuidObj),
                 error: function(request,status,error){
@@ -274,7 +274,7 @@
 
             $.ajax({
                 type: "PUT",
-                url: "/posts",
+                url: "/api/posts",
                 contentType: "application/json",
                 data: JSON.stringify(json_obj),
                 error: function(request,status,error){

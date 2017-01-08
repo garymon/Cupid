@@ -2,10 +2,13 @@
 import json, uuid
 from flask import Flask, redirect, url_for, request, render_template
 from MysqlDAO import MysqlDAO
+from app import apiRoute
 import datetime
 
 
 app = Flask(__name__)
+# register api router
+app.register_blueprint(apiRoute.api)
 
 @app.route('/')
 def index():
@@ -15,29 +18,11 @@ def index():
 def about():
    return render_template('photo.html')
 
-@app.route('/posts', methods=['POST', 'GET', 'PUT', 'DELETE'])
+@app.route('/posts', methods=['GET'])
 def post():
-   if request.method == "GET":
-        var = MysqlDAO.post_select()
-        print(var)
-        return render_template('post.html', posts=var)
-
-   elif request.method == "POST":
-        insertObj = request.get_json()
-        MysqlDAO.post_insert(insertObj)
-        #fileDAO.save(insertObj)
-        return ""
-
-   elif request.method == "PUT":
-        updateObj = request.get_json()
-        MysqlDAO.post_update(updateObj)
-        #fileDAO.modify(updateObj)
-        return ""
-
-   elif request.method == "DELETE" :
-        removeObj = request.get_json()
-        MysqlDAO.post_delete(removeObj)
-        return ""
+    var = MysqlDAO.post_select()
+    print(var)
+    return render_template('post.html', posts=var)
 
 @app.route("/posts/<uuid>")
 def updateDeletPost():
