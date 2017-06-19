@@ -81,4 +81,4 @@ def contact():
 
 def run():
     print("Cupid Start at %s"%str(datetime.datetime.now()))
-    app.run(host="0.0.0.0", port=int("8080"), debug=True)
+    app.run(host="0.0.0.0", port=int("18080"), debug=True, threaded=True)
