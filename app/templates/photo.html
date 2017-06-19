@@ -92,41 +92,25 @@
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                    Option <span class="caret"></span>
                 </button>
+
                 <ul class="dropdown-menu">
-                   <li><a href="#">Upload</a></li>
-                   <li><a href="#">Increasing sort by date</a></li>
-                   <li><a href="#">Decreasing sort by date</a></li>
+                   <li>
+                       <form href="" id="contact_form" onsubmit="return false;" action="photo" method="POST" enctype = "multipart/form-data">
+                           <input type="file" id="upload" name="file" onchange="javascript:this.form.submit();return false;" style="visibility: hidden; width: 1px; height: 1px" multiple />
+                       </form>
+                       <a id="photo_atag" href="">Upload</a>
+                   </li>
+                   <li><a href="#" id="increaseSort">Increasing sort by date</a></li>
+                   <li><a href="#" id="decreaseSort">Decreasing sort by date</a></li>
                 </ul>
             </div>
-            <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1">
+            <div id="photo_window" class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1">
                 <div class="photoImg">
-                    <a target="_blank" href="img_fjords.jpg">
-                        <img src="../static/img/about-bg.jpg" alt="Trolltunga Norway" width="300" height="200">
+                    {% for photoItem in photos  %}
+                    <a target="_blank" href={{photoItem}}>
+                        <img src= {{photoItem.photoname}} alt="Trolltunga Norway" width="300" height="200">
                     </a>
-                </div>
-
-                <div class="photoImg">
-                    <a target="_blank" href="img_forest.jpg">
-                        <img src="../static/img/about-bg.jpg" alt="Forest" width="600" height="400">
-                    </a>
-                </div>
-
-                <div class="photoImg">
-                    <a target="_blank" href="img_lights.jpg">
-                        <img src="../static/img/about-bg.jpg" alt="Northern Lights" width="600" height="400">
-                    </a>
-                </div>
-
-                <div class="photoImg">
-                    <a target="_blank" href="img_mountains.jpg">
-                        <img src="../static/img/about-bg.jpg" alt="Mountains" width="600" height="400">
-                    </a>
-                </div>
-
-                <div class="photoImg">
-                    <a target="_blank" href="img_mountains.jpg">
-                        <img src="../static/img/about-bg.jpg" alt="Mountains" width="600" height="400">
-                    </a>
+                    {% endfor %}
                 </div>
             </div>
         </div>
@@ -183,6 +167,8 @@
 
     <!-- Theme JavaScript -->
     <script src="static/js/clean-blog.min.js"></script>
+
+    <script src="static/js/photo.js"></script>
 
 </body>
 

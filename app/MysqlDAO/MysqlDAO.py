@@ -25,10 +25,8 @@ def post_select(page_size=None, page_num=None):
 def post_insert(post):
     conn, curs = DB_connect()
     post['uuid'] = str(uuid.uuid4())
-    #sql = "INSERT INTO cupid.post(date, content,name,uuid) VALUES ('%s', '%s', '%s', '%s')"%(str(post['date']), str(post['content'].encode('utf-8')), str(post['name'].encode('utf-8')), str(post['uuid']))
     sql = "INSERT INTO cupid.post(date, content,name,uuid) VALUES (%s, %s, %s, %s)"
     curs.execute(sql,(str(post['date']), str(post['content'].encode('utf-8')), str(post['name'].encode('utf-8')), str(post['uuid'])))
-    #curs.execute(sql)
     curs.fetchall()
     conn.commit()
     conn.close()
@@ -51,3 +49,30 @@ def post_delete(removePost):
     conn.commit()
     conn.close()
     return
+
+def photo_upload(file, photoname):
+    conn, curs = DB_connect()
+    photo = {}
+    photo['uuid'] = str(uuid.uuid4())
+    photo['photoname'] = str("../Cupid/app/static/img/imgpost/" + photoname)
+    sql = "INSERT INTO cupid.photo(photoname, uuid) VALUES (%s, %s)"
+    curs.execute(sql,(str(photo['photoname'].encode('utf-8')), str(photo['uuid'])))
+    curs.fetchall()
+    conn.commit()
+    conn.close()
+    # f = request.files['file']
+    # print(f.filename)
+    # UPLOAD_FOLDER = '../Cupid/app/static/img'
+    # app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+    # print(os.path.join(app.config['UPLOAD_FOLDER'],secure_filename(f.filename)))
+    # f.save(os.path.join(app.config['UPLOAD_FOLDER'],secure_filename(f.filename)))
+    return
+
+def photo_select():
+    conn, curs = DB_connect()
+    sql = "select * from cupid.photo"
+    res = curs.execute(sql)
+    rows = curs.fetchall()
+    print(rows)
+    conn.close()
+    return rows
