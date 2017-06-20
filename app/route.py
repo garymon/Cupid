@@ -20,10 +20,11 @@ def index():
 def photo():
    if request.method == "POST":
         f = request.files['file']
-        photoname = MysqlDAO.photo_upload()
-        app.config['UPLOAD_FOLDER'] = PHOTO_PATH
-        f.save(os.path.join(app.config['UPLOAD_FOLDER'],secure_filename(photoname)))
-        return render_template('photo.html')
+        photoname = MysqlDAO.photo_upload(f.filename)
+        # app.config['UPLOAD_FOLDER'] = PHOTO_PATH
+        f.save(os.path.join(PHOTO_PATH ,secure_filename(photoname)))
+        return redirect("/photo", code=302)
+
 
    elif request.method == "GET":
         # path = {"static/img/IMG_2783"}
@@ -35,13 +36,11 @@ def photo():
         return render_template('photo.html')
 
 @app.route('/photo/<uuid>', methods=['GET'])
-def get_photo():
+def get_photo(uuid):
     if request.method == "GET":
-        uuid = request.__getattr__("uuid")
         DBphoto = MysqlDAO.get_photo(uuid)
         # flask return image
-        return send_from_directory(PHOTO_PATH, DBphoto.photoname)
-
+        return send_from_directory(PHOTO_PATH, DBphoto['uuid'])
 
 @app.route('/posts', methods=['GET'])
 def post():

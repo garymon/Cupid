@@ -50,13 +50,13 @@ def post_delete(removePost):
     conn.close()
     return
 
-def photo_upload():
+def photo_upload(img_name):
     conn, curs = DB_connect()
     photo = {}
     photo['uuid'] = str(uuid.uuid4())
     photo['path'] = str('/photo/')
-    photo['dir_path'] = str('root/Cupid/data/img/')
-    photo['photoname'] = photo['uuid']
+    photo['dir_path'] = str('/root/Cupid/data/img/')
+    photo['photoname'] = img_name
     sql = "INSERT INTO cupid.photo(photoname, uuid, path, dir_path) VALUES (%s, %s, %s, %s)"
     curs.execute(sql,(str(photo['photoname'].encode('utf-8')), str(photo['uuid']), str(photo['path']), str(photo['dir_path']) ))
     curs.fetchall()
@@ -66,9 +66,9 @@ def photo_upload():
 
 def get_photo(uuid):
     conn, curs = DB_connect()
-    sql = "select * from cupid.photo where cupid.uuid = %s"
-    res = curs.execute(sql)
-    rows = curs.fetchall()
+    sql = "select * from cupid.photo where uuid = %s"
+    res = curs.execute(sql, uuid)
+    rows = curs.fetchone()
     print(rows)
     conn.close()
     return rows
