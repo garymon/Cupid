@@ -107,8 +107,8 @@
             <div id="photo_window" class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1">
                 <div class="photoImg">
                     {% for photoItem in photos  %}
-                    <a target="_blank" href={{photoItem}}>
-                        <img src= {{photoItem.photoname}} alt="Trolltunga Norway" width="300" height="200">
+                    <a target="_blank" href={{photoItem.path}} + {{photoItem.photoname}}>
+                        <img src={{photoItem.path}} + {{photoItem.photoname}} alt="Trolltunga Norway" width="300" height="200">
                     </a>
                     {% endfor %}
                 </div>

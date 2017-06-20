@@ -50,23 +50,29 @@ def post_delete(removePost):
     conn.close()
     return
 
-def photo_upload(file, photoname):
+def photo_upload():
     conn, curs = DB_connect()
     photo = {}
     photo['uuid'] = str(uuid.uuid4())
-    photo['photoname'] = str("../Cupid/app/static/img/imgpost/" + photoname)
-    sql = "INSERT INTO cupid.photo(photoname, uuid) VALUES (%s, %s)"
-    curs.execute(sql,(str(photo['photoname'].encode('utf-8')), str(photo['uuid'])))
+    photo['path'] = str('/photo/')
+    photo['dir_path'] = str('root/Cupid/data/img/')
+    photo['photoname'] = photo['uuid']
+    sql = "INSERT INTO cupid.photo(photoname, uuid, path, dir_path) VALUES (%s, %s, %s, %s)"
+    curs.execute(sql,(str(photo['photoname'].encode('utf-8')), str(photo['uuid']), str(photo['path']), str(photo['dir_path']) ))
     curs.fetchall()
     conn.commit()
     conn.close()
-    # f = request.files['file']
-    # print(f.filename)
-    # UPLOAD_FOLDER = '../Cupid/app/static/img'
-    # app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-    # print(os.path.join(app.config['UPLOAD_FOLDER'],secure_filename(f.filename)))
-    # f.save(os.path.join(app.config['UPLOAD_FOLDER'],secure_filename(f.filename)))
-    return
+    return photo['uuid']
+
+def get_photo(uuid):
+    conn, curs = DB_connect()
+    sql = "select * from cupid.photo where cupid.uuid = %s"
+    res = curs.execute(sql)
+    rows = curs.fetchall()
+    print(rows)
+    conn.close()
+    return rows
+
 
 def photo_select():
     conn, curs = DB_connect()

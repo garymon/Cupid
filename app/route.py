@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 import json, uuid, os
-from flask import Flask, redirect, url_for, request, render_template
+from flask import Flask, redirect, url_for, request, render_template, send_from_directory
 from MysqlDAO import MysqlDAO
 from app import apiRoute
 import datetime
 from werkzeug import secure_filename
+from config import *
 
 
 app = Flask(__name__)
@@ -19,21 +20,28 @@ def index():
 def photo():
    if request.method == "POST":
         f = request.files['file']
-        photoname = f.filename
-        MysqlDAO.photo_upload(f, photoname)
-        UPLOAD_FOLDER = '../Cupid/app/static/img/imgpost'
-        app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-        f.save(os.path.join(app.config['UPLOAD_FOLDER'],secure_filename(f.filename)))
+        photoname = MysqlDAO.photo_upload()
+        app.config['UPLOAD_FOLDER'] = PHOTO_PATH
+        f.save(os.path.join(app.config['UPLOAD_FOLDER'],secure_filename(photoname)))
         return render_template('photo.html')
 
    elif request.method == "GET":
-        # path = {"static/img/IMG_2783.JPG"}
-        var = MysqlDAO.photo_select()
-        print(var)
-        return render_template('photo.html', photos=var)
+        # path = {"static/img/IMG_2783"}
+        DBphoto = MysqlDAO.photo_select()
+        print(DBphoto)
+        return render_template('photo.html', photos=DBphoto)
 
    elif request.method == "PUT":
         return render_template('photo.html')
+
+@app.route('/photo/<uuid>', methods=['GET'])
+def get_photo():
+    if request.method == "GET":
+        uuid = request.__getattr__("uuid")
+        DBphoto = MysqlDAO.get_photo(uuid)
+        # flask return image
+        return send_from_directory(PHOTO_PATH, DBphoto.photoname)
+
 
 @app.route('/posts', methods=['GET'])
 def post():
@@ -60,16 +68,7 @@ def post():
         removeObj = request.get_json()
         MysqlDAO.post_delete(removeObj)
         return ""
-"""
-@app.route('/upload', methods=['POST', 'GET'])
-def upload():
-    if request.method == 'POST':
-        f = request.files['file']
-        print(f.filename)
-        print(secure_filename(f.filename))
-        f.save(secure_filename(f.filename))
-        return render_template('photo.html')
-"""
+
 
 @app.route("/posts/<uuid>")
 def updateDeletPost():
