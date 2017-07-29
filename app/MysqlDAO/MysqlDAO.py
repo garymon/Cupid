@@ -1,5 +1,7 @@
 import uuid, pymysql
 from config import *
+from datetime import *
+
 
 def DB_connect():
     conn = pymysql.connect(host=MYSQL_URL, port=MYSQL_PORT, user=MYSQL_USER, password=MYSQL_PASSWD, db=MYSQL_DBNAME, charset=MYSQL_CHARSET)
@@ -25,7 +27,7 @@ def post_select(page_size=None, page_num=None):
 def post_insert(post):
     conn, curs = DB_connect()
     post['uuid'] = str(uuid.uuid4())
-    sql = "INSERT INTO cupid.post(date, content,name,uuid) VALUES (%s, %s, %s, %s)"
+    sql = "INSERT INTO cupid.post(date, content, name, uuid) VALUES (%s, %s, %s, %s)"
     curs.execute(sql,(str(post['date']), str(post['content'].encode('utf-8')), str(post['name'].encode('utf-8')), str(post['uuid'])))
     curs.fetchall()
     conn.commit()
@@ -53,12 +55,13 @@ def post_delete(removePost):
 def photo_upload(img_name):
     conn, curs = DB_connect()
     photo = {}
+    photo['date'] = str(datetime.today())
     photo['uuid'] = str(uuid.uuid4())
     photo['path'] = str('/photo/')
-    photo['dir_path'] = str('/root/Cupid/data/img/')
+    photo['dir_path'] = str(PHOTO_PATH)
     photo['photoname'] = img_name
-    sql = "INSERT INTO cupid.photo(photoname, uuid, path, dir_path) VALUES (%s, %s, %s, %s)"
-    curs.execute(sql,(str(photo['photoname'].encode('utf-8')), str(photo['uuid']), str(photo['path']), str(photo['dir_path']) ))
+    sql = "INSERT INTO cupid.photo(photoname, uuid, path, dir_path, date) VALUES (%s, %s, %s, %s, %s)"
+    curs.execute(sql,(str(photo['photoname'].encode('utf-8')), str(photo['uuid']), str(photo['path']), str(photo['dir_path']), str(photo['date']) ))
     curs.fetchall()
     conn.commit()
     conn.close()
@@ -76,7 +79,7 @@ def get_photo(uuid):
 
 def photo_select():
     conn, curs = DB_connect()
-    sql = "select * from cupid.photo"
+    sql = "select * from cupid.photo ORDER BY date DESC"
     res = curs.execute(sql)
     rows = curs.fetchall()
     print(rows)

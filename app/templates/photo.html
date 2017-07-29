@@ -26,10 +26,9 @@
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
 </head>
 
 <body>
@@ -88,7 +87,7 @@
     <div class="container">
         <div class="row">
             <!-- Single button -->
-            <div class="btn-group col-lg-10 col-lg-offset-8 col-md-10 col-md-offset-8">
+            <div class="row btn-group col-md-2 col-md-offset-10">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                    Option <span class="caret"></span>
                 </button>
@@ -104,14 +103,14 @@
                    <li><a href="#" id="decreaseSort">Decreasing sort by date</a></li>
                 </ul>
             </div>
-            <div id="photo_window" class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1">
-                <div class="photoImg">
-                    {% for photoItem in photos  %}
+            <div class="row col-md-12" id="image_container">
+                {% for photoItem in photos  %}
+                <div class='col-lg-3 col-md-3 col-xs-3']>
                     <a target="_blank" href={{photoItem.path}} + {{photoItem.uuid}}>
-                        <img src={{photoItem.path + photoItem.uuid}} alt="Trolltunga Norway" width="300" height="200">
+                        <img src={{photoItem.path + photoItem.uuid}} width="100%" heigh="100%">
                     </a>
-                    {% endfor %}
                 </div>
+                {% endfor %}
             </div>
         </div>
     </div>
@@ -166,9 +165,17 @@
     <script src="static/js/contact_me.js"></script>
 
     <!-- Theme JavaScript -->
-    <script src="static/js/clean-blog.min.js"></script>
 
+    <script src="static/js/clean-blog.min.js"></script>
+    <script src="static/js/freewall.js"></script>
     <script src="static/js/photo.js"></script>
+<script>
+    $(document).ready(function() {
+        var wall = new Freewall("#image_container");
+        wall.fitWidth();
+    })
+
+</script>
 
 </body>
 
