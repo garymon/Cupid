@@ -2,3 +2,7 @@
 .cupid {
     color: red;
 }
+
+.nopadding {
+    padding: 0px !important
+}

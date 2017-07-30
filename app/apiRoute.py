@@ -12,7 +12,7 @@ def index():
     if request.method == "GET":
         page_size = None
         page_num = None
-        print(request.args)
+        # print(request.args)
         if 'page_size' in request.args and 'page_num' in request.args:
             page_size = int(request.args.get('page_size'))
             page_num = int(request.args.get('page_num'))

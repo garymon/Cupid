@@ -8,7 +8,6 @@ def DB_connect():
     curs = conn.cursor(pymysql.cursors.DictCursor)
     return conn, curs
 
-
 def post_select(page_size=None, page_num=None):
     conn, curs = DB_connect()
     if page_size is not None and page_num is not None:
@@ -20,13 +19,13 @@ def post_select(page_size=None, page_num=None):
 
     res = curs.execute(sql)
     rows = curs.fetchall()
-    print(rows)
     conn.close()
     return rows
 
 def post_insert(post):
     conn, curs = DB_connect()
     post['uuid'] = str(uuid.uuid4())
+    post['date'] = str(datetime.today())
     sql = "INSERT INTO cupid.post(date, content, name, uuid) VALUES (%s, %s, %s, %s)"
     curs.execute(sql,(str(post['date']), str(post['content'].encode('utf-8')), str(post['name'].encode('utf-8')), str(post['uuid'])))
     curs.fetchall()

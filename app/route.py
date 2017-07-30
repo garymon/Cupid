@@ -1,3 +1,4 @@
+
 # -*- coding: utf-8 -*-
 import json, uuid, os
 from flask import Flask, redirect, url_for, request, render_template, send_from_directory
@@ -15,6 +16,7 @@ app.register_blueprint(apiRoute.api)
 @app.route('/')
 def index():
    return render_template('index.html')
+
 
 @app.route('/photo', methods=['POST', 'GET', 'PUT'])
 def photo():
@@ -42,19 +44,16 @@ def get_photo(uuid):
         # flask return image
         return send_from_directory(PHOTO_PATH, DBphoto['uuid'])
 
-@app.route('/posts', methods=['GET'])
+@app.route('/post', methods=['GET', 'POST'])
 def post():
-    var = MysqlDAO.post_select()
-
+#     var = MysqlDAO.post_select()
     if request.method == "GET":
         var = MysqlDAO.post_select()
-        print(var)
         return render_template('post.html', posts=var)
 
     elif request.method == "POST":
         insertObj = request.get_json()
         MysqlDAO.post_insert(insertObj)
-        #fileDAO.save(insertObj)
         return ""
 
     elif request.method == "PUT":
@@ -68,10 +67,9 @@ def post():
         MysqlDAO.post_delete(removeObj)
         return ""
 
-
-@app.route("/posts/<uuid>")
-def updateDeletPost():
-   request.__getattr__("uuid")
+# @app.route("/posts/<uuid>")
+# def updateDeletPost():
+#    request.__getattr__("uuid")
 
 @app.route('/contact')
 def contact():

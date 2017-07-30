@@ -5,7 +5,7 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 module.exports = {
   entry: {
     index: './js/index.js',
-    index2: './js/index2.js',
+    post: './js/post.js',
     style: [
         'bootstrap/dist/css/bootstrap.css',
         'font-awesome/css/font-awesome.css',
