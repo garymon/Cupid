@@ -44,7 +44,7 @@ def get_photo(uuid):
         # flask return image
         return send_from_directory(PHOTO_PATH, DBphoto['uuid'])
 
-@app.route('/post', methods=['GET', 'POST'])
+@app.route('/post', methods=['GET', 'PUT', 'POST', 'DELETE'])
 def post():
 #     var = MysqlDAO.post_select()
     if request.method == "GET":
