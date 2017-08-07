@@ -154,11 +154,7 @@
                         <!--<div class="postUuid" style="display:none">{{postItem.uuid}}</div>-->
                     </div>
                     <div class="panel-body">
-                        <div class="postContent" style="display:block">
-                            {% for contentItem in postItem.content.splitlines() %}
-                            {{contentItem}}<br>
-                            {% endfor %}
-                        </div>
+                        <div class="postContent" style="display:block; word-break:break-all">{% for contentItem in postItem.content.splitlines() %}{{contentItem}}<br>{% endfor %}</div>
                         <div class="updateTextBox" style="display:none">
                                 <textarea class="updateText form-control" rows="5" cols="100" id="message" required
                                 data-validation-required-message="Please enter your message" maxlength="999" data-content="{{postItem.content}}"
