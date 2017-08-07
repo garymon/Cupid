@@ -160,12 +160,15 @@
                             {% endfor %}
                         </div>
                         <div class="updateTextBox" style="display:none">
-                            <textarea class="updateText form-control" rows="5" cols="100" id="message" required
-                            data-validation-required-message="Please enter your message" maxlength="999"
-                            style="resize:none"></textarea>
-                            <button class="updateButton btn btn-default col-xs-3 col-xs-offset-9 col-lg-3 col-lg-offset-9 col-md-3 col-md-offset-9" type="button">
-                            Save
-                            </button>
+                                <textarea class="updateText form-control" rows="5" cols="100" id="message" required
+                                data-validation-required-message="Please enter your message" maxlength="999" data-content="{{postItem.content}}"
+                                style="resize:none">{{ postItem.content }}</textarea>
+                                <button class="updateButton btn btn-default col-xs-3 col-xs-offset-6 col-lg-3 col-lg-offset-6 col-md-3 col-md-offset-6" type="button">
+                                Save
+                                </button>
+                                <button class="updateCancelButton btn btn-default col-xs-3 col-xs-offset-0col-lg-3 col-lg-offset-0 col-md-3 col-md-offset-0" type="button">
+                                Cancel
+                                </button>
                         </div>
                     </div>
                 </div>

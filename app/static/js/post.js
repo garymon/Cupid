@@ -43,11 +43,9 @@ $(document).ready(function() {
     })
 
     $(".postUpdate").click(function() {
-        $(this).parents(".panel").find(".postContent").hide()
-        $(this).parents(".panel").find(".updateTextBox").show()
-    })
-
-
+        $(this).parents(".panel").find(".postContent").hide();
+        $(this).parents(".panel").find(".updateTextBox").show();
+    });
 
     $(".updateButton").click(function() {
         var updateText = $(this).parents(".updateTextBox").find(".updateText").val();
@@ -67,5 +65,13 @@ $(document).ready(function() {
                 console.log("update updateText Error", e);
             }
         });
+    })
+
+    $(".updateCancelButton").click(function() {
+        $(this).parents(".panel-body").find(".postContent").show();
+        $(this).parents(".panel-body").find(".updateTextBox").hide();
+
+        var originContent = $(this).parents(".updateTextBox").find(".updateText").data('content');
+        $(this).parents(".updateTextBox").find(".updateText").val(originContent);
     })
 })
