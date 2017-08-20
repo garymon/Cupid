@@ -21,15 +21,18 @@ def index():
 @app.route('/photo', methods=['POST', 'GET', 'PUT'])
 def photo():
    if request.method == "POST":
+        print("photo() POST")
         f = request.files['file']
+        print(f)
         photoname = MysqlDAO.photo_upload(f.filename)
+        print(photoname)
         # app.config['UPLOAD_FOLDER'] = PHOTO_PATH
         f.save(os.path.join(PHOTO_PATH ,secure_filename(photoname)))
         return redirect("/photo", code=302)
 
 
    elif request.method == "GET":
-        # path = {"static/img/IMG_2783"}
+        # path = {"static/img/\IMG_2783"}
         DBphoto = MysqlDAO.photo_select()
         print(DBphoto)
         return render_template('photo.html', photos=DBphoto)

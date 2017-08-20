@@ -6,6 +6,7 @@ module.exports = {
   entry: {
     index: './js/index.js',
     post: './js/post.js',
+    photo: './js/photo.js',
     style: [
         'bootstrap/dist/css/bootstrap.css',
         'font-awesome/css/font-awesome.css',
