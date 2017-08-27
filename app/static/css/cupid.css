@@ -3,6 +3,14 @@
     color: red;
 }
 
+.content {
+    min-height: 500px;
+}
+
+.margin-top {
+    margin-top: 20px;
+}
+
 .nopadding {
     padding: 0px !important
 }
