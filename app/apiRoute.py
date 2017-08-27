@@ -8,7 +8,7 @@ import datetime
 api = Blueprint('api', __name__, url_prefix='/api')
 
 @api.route('/posts', methods=['POST', 'GET', 'PUT', 'DELETE'])
-def index():
+def posts():
     if request.method == "GET":
         page_size = None
         page_num = None
