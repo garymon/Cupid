@@ -13,7 +13,6 @@
 
 
     <link href="static/dist/style.css" rel="stylesheet" type="text/css">
-
 </head>
 
 <body>
@@ -35,8 +34,8 @@
                             Option
                             <span class="caret"></span></button>
                         <ul class="dropdown-menu dropdown-menu-right">
-                            <li><a href="#">Sort by ascending order</a></li>
-                            <li><a href="#">Sort by descending order</a></li>
+                            <li><a href="#" id="ascending_photo">Sort by ascending order</a></li>
+                            <li><a href="#" id="descending_photo">Sort by descending order</a></li>
                             <li>
                                 <form action="photo" method="post" enctype="multipart/form-data">
                                     <input id="upload" type="file" name="file" onchange="submit();return treu;"
@@ -52,20 +51,16 @@
     </div>
     <div class="row text-center text-lg-left">
         {% for photoItem in photos %}
-        <div class="col-lg-3 col-md-4 col-xs-6">
-            <a href="#" class="d-block mb-4 h-100">
+        <div class="col-lg-3 col-md-4 col-xs-6" data-date="{{photoItem.date}}">
+            <a href="#" id="" data-toggle="modal" data-target=".bd-example-modal-lg"
+               class="img-click d-block mb-4 h-100">
                 <img class="img-fluid img-thumbnail" src={{photoItem.path + photoItem.uuid}} alt="">
             </a>
         </div>
         {% endfor %}
-        <div class="col-lg-3 col-md-4 col-xs-6">
-            <a href="#" class="d-block mb-4 h-100">
-                <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
-            </a>
-        </div>
     </div>
     <!-- /.row -->
-
+    <!-- Large modal -->
 
     <hr>
     <!-- Footer -->
@@ -80,6 +75,21 @@
 </div>
 <!-- /.container -->
 
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <h8 class="modal-title" id="modal-date">Modal title</h8>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <img id="modal-img" src="" alt="">
+        </div>
+
+
+    </div>
+</div>
+
 <!-- Script to Activate the Carousel -->
 <script type="text/javascript" src="static/dist/photo.js"></script>
 <style>
@@ -90,11 +100,10 @@ text-decoration:none;
     display:none
 }
 
-
-
-
-
-
+#modal-img{
+    height:100%;
+    width:100%;
+}
 
 </style>
 
